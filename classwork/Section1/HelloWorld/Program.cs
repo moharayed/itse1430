@@ -6,6 +6,61 @@ namespace HelloWorld
     {
         static void Main ( /*string[] args*/ )
         {
+            string title;
+            int runLength;
+            int releaseYear;
+            string description;
+            bool haveSeen;
+
+            while (true)
+            {
+                char input = DisplayMenu ();
+                if (input == 'A')
+                {
+                    AddMovie ();
+                } 
+                else if (input == 'Q')
+                {
+                    break;
+                }
+            };
+        }
+
+        static void AddMovie ()
+        {
+            //Get title
+            //Get Description
+            //Get release year
+            //Get run length
+            //Get have seen
+
+        }
+                                  
+        static char DisplayMenu()
+        {
+            do
+            {
+                Console.WriteLine ("A)dd a movie");
+                Console.WriteLine ("Q)uit");
+
+                string input = Console.ReadLine ();
+                if (input == "A" || input == "a")
+                {
+                    return 'A';
+                } 
+                else if (input == "Q" || input == "q")
+                {
+                    return 'Q';
+                } 
+                else
+                {
+                    Console.WriteLine ("Invalid input");
+                };
+            } while (true);
+        }
+
+        private static void DemoLanguage ()
+        {
             string name;
 
             //string if = "";
