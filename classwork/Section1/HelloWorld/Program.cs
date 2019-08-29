@@ -52,8 +52,9 @@ namespace HelloWorld
                 string input = Console.ReadLine ();
 
                 //int result = Int32.Parse (input);
-                int result;
-                if (Int32.TryParse (input, out result))
+                //int result;
+                //if (Int32.TryParse (input, out result))
+                if (Int32.TryParse (input, out int result))
                     return result;
 
                 Console.WriteLine ("Not a number");
