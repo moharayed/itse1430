@@ -29,13 +29,54 @@ namespace HelloWorld
         static void AddMovie ()
         {
             //Get title
+            Console.Write ("Title: ");
+            string title = Console.ReadLine ();
             //Get Description
+            Console.Write ("Description: ");
+            string description = Console.ReadLine ();
             //Get release year
+            int releaseYear = ReadInt32 ("Release Year: ");
             //Get run length
+            int runLength = ReadInt32 ("Run Length: (In minutes) ");
             //Get have seen
+            bool haveSeen = ReadBoolean ("Have See? ");
 
         }
-                                  
+
+        static int ReadInt32 ( string message )
+        {
+            while (true)
+            {
+                Console.Write (message);
+
+                string input = Console.ReadLine ();
+
+                //int result = Int32.Parse (input);
+                int result;
+                if (Int32.TryParse (input, out result))
+                    return result;
+
+                Console.WriteLine ("Not a number");
+            }
+        }
+
+        static bool ReadBoolean ( string message )
+        {
+            while (true)
+            {
+                Console.Write (message);
+
+                string input = Console.ReadLine ();
+
+                //int result = Int32.Parse (input);
+                bool result;
+                if (Boolean.TryParse (input, out result))
+                    return result;
+
+                Console.WriteLine ("Not a boolean");
+            }
+        }
+
         static char DisplayMenu()
         {
             do
