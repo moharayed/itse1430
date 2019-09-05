@@ -6,11 +6,11 @@ namespace HelloWorld
     {
         static void Main ( /*string[] args*/ )
         {
-            string title;
-            int runLength;
-            int releaseYear;
-            string description;
-            bool haveSeen;
+            //string title;
+            //int runLength;
+            //int releaseYear;
+            //string description;
+            //bool haveSeen;
 
             while (true)
             {
@@ -19,6 +19,10 @@ namespace HelloWorld
                 {
                     AddMovie ();
                 } 
+                else if (input == 'D')
+                {
+                    DisplayMovie ();
+                }
                 else if (input == 'Q')
                 {
                     break;
@@ -30,16 +34,20 @@ namespace HelloWorld
         {
             //Get title
             Console.Write ("Title: ");
-            string title = Console.ReadLine ();
+            title = Console.ReadLine ();
+
             //Get Description
             Console.Write ("Description: ");
-            string description = Console.ReadLine ();
+            description = Console.ReadLine ();
+
             //Get release year
-            int releaseYear = ReadInt32 ("Release Year: ");
+            releaseYear = ReadInt32 ("Release Year: ");
+
             //Get run length
-            int runLength = ReadInt32 ("Run Length: (In minutes) ");
+            runLength = ReadInt32 ("Run Length: (In minutes) ");
+
             //Get have seen
-            bool haveSeen = ReadBoolean ("Have See? ");
+            hasSeen = ReadBoolean ("Have See? ");
 
         }
 
@@ -49,16 +57,37 @@ namespace HelloWorld
             {
                 Console.Write (message);
 
-                string input = Console.ReadLine ();
+                var input = Console.ReadLine ();
 
                 //int result = Int32.Parse (input);
                 //int result;
                 //if (Int32.TryParse (input, out result))
-                if (Int32.TryParse (input, out int result))
+                if (Int32.TryParse (input, out var result))
                     return result;
 
                 Console.WriteLine ("Not a number");
             }
+        }
+
+        static void DisplayMovie ()
+        {
+            //Title, description, release year, run length, hasSeen
+            Console.WriteLine (title);
+            Console.WriteLine (description);
+
+            //Formatting String
+            //1) String Concat
+            Console.WriteLine ("Released " + releaseYear);
+
+            //2) Printf
+            //Console.WriteLine ("Run Time: {0}", runLength);
+
+            //3) String Formatting
+            var formattedString = String.Format ("Run time: {0}", runLength);
+            Console.WriteLine (formattedString);
+
+            //4) String Interpulation
+            Console.WriteLine ($"Seen it? {hasSeen}");
         }
 
         static bool ReadBoolean ( string message )
@@ -83,16 +112,25 @@ namespace HelloWorld
             do
             {
                 Console.WriteLine ("A)dd a movie");
+                Console.WriteLine ("D)isplay movie");
                 Console.WriteLine ("Q)uit");
 
                 string input = Console.ReadLine ();
-                if (input == "A" || input == "a")
+
+                //Lower case
+                input = input.ToLower ();
+                //if (input == "a")
+                if (String.Compare (input, "a", true) == 0)
                 {
                     return 'A';
                 } 
-                else if (input == "Q" || input == "q")
+                else if (input == "q")
                 {
                     return 'Q';
+                } 
+                else if (input == "d")
+                {
+                    return 'D';
                 } 
                 else
                 {
@@ -125,6 +163,42 @@ namespace HelloWorld
             string fullName = "Fred" + " " + "Jones";
             Console.WriteLine (fullName);
             Console.WriteLine (totalPay);
+            
         }
+
+        static void DemoArray ()
+        {
+            double[] payRates = new double[100];
+
+            //50th element to 7.25
+            payRates[49] = 7.25;
+
+            //Read 89th element into temp variable
+            double payRate = payRates[88];
+
+            //Print out the 80th element
+            Console.WriteLine (payRates[79]);
+
+            //An empty array
+            bool[] isPassing = new bool[0];
+
+            //Enumerating an array
+            for (int index = 0; index < payRates.Length; ++index)
+                Console.WriteLine (payRates[index]);
+
+            //Type inferencing
+            //string name = "Bob William Smith Jr III";
+            var name = "Bob William Smith Jr III";
+            //name = 20;
+
+            string[] nameParts = name.Split (' ');
+        }
+
+        //Don't do this outside lab 1
+        static string title;
+        static string description;
+        static int runLength;
+        static int releaseYear;
+        static bool hasSeen;
     }
 }
