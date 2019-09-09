@@ -277,5 +277,5 @@ namespace HelloWorld
 }
 
 
-
+//.NET Framework/.core = managed code
 //CLR = Common Language Runtime
