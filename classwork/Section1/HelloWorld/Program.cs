@@ -11,23 +11,56 @@ namespace HelloWorld
             //int releaseYear;
             //string description;
             //bool haveSeen;
-
-            while (true)
+            var quit = false;
+            while (!quit)
             {
                 char input = DisplayMenu ();
-                if (input == 'A')
+                switch (input)
                 {
-                    AddMovie ();
-                } 
-                else if (input == 'D')
-                {
-                    DisplayMovie ();
-                }
-                else if (input == 'Q')
-                {
-                    break;
-                }
+                    //Fallthrough allowed only if case is empty
+                    case 'a':
+                    case 'A': AddMovie (); break;
+
+                    //Must have break/return at end of each case
+                    case 'D': DisplayMovie (); break;
+                    case 'R': RemoveMovie (); break;
+                    case 'Q':
+                    {
+                        quit = true;
+                        break;
+                    }
+                    default: Console.WriteLine ("Not Supported"); break;
+                };
+
+
+                //if (input == 'A')
+                //{
+                //    AddMovie ();
+                //} 
+                //else if (input == 'D')
+                //{
+                //    DisplayMovie ();
+                //}
+                //else if (input == 'R')
+                //{
+                //    RemoveMovie ();
+                //}
+                //else if (input == 'Q')
+                //{
+                //    break;
+                //}
             };
+        }
+
+        private static void RemoveMovie()
+        {
+            //Confirm Movie
+            //Please DONT do this expression == true, expression
+            if (!ReadBoolean ($"Are you sure you want to remove {title}? "))
+                return;
+
+            //Remove movie
+            title = null;
         }
 
         static void AddMovie ()
@@ -71,6 +104,13 @@ namespace HelloWorld
 
         static void DisplayMovie ()
         {
+            //Display message if no movies
+            if (String.IsNullOrEmpty(title))
+            {
+                Console.WriteLine ("No movies");
+                return;
+            };
+
             //Title, description, release year, run length, hasSeen
             Console.WriteLine (title);
             Console.WriteLine (description);
@@ -88,6 +128,9 @@ namespace HelloWorld
 
             //4) String Interpulation
             Console.WriteLine ($"Seen it? {hasSeen}");
+            
+            //String.Compare ("", "", StringComparison.);
+            Console.WriteLine ("".PadLeft (50, '-'));
         }
 
         static bool ReadBoolean ( string message )
@@ -113,6 +156,7 @@ namespace HelloWorld
             {
                 Console.WriteLine ("A)dd a movie");
                 Console.WriteLine ("D)isplay movie");
+                Console.WriteLine ("R)emove movie");
                 Console.WriteLine ("Q)uit");
 
                 string input = Console.ReadLine ();
@@ -131,7 +175,11 @@ namespace HelloWorld
                 else if (input == "d")
                 {
                     return 'D';
-                } 
+                }
+                else if (input == "r")
+                {
+                    return 'R';
+                }
                 else
                 {
                     Console.WriteLine ("Invalid input");
@@ -192,6 +240,31 @@ namespace HelloWorld
             //name = 20;
 
             string[] nameParts = name.Split (' ');
+        }
+
+        static void DemoString()
+        {
+            string str = null;
+
+            //Checking for null
+            if (str != null)
+                str = str.ToLower ();
+
+            //Checking for null  or empty string
+            if (str != null && str != "")
+                str = str.ToLower ();
+
+            //Length - NO
+            if (str != null && str.Length == 0)
+                str = str.ToLower ();
+
+            //Empty - No
+            if (str != null && str != String.Empty)
+                str = str.ToLower ();
+
+            // Correct Approach
+            if (!String.IsNullOrEmpty(str))
+                str = str.ToLower ();
         }
 
         //Don't do this outside lab 1
