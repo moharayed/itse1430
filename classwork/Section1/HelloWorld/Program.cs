@@ -275,3 +275,7 @@ namespace HelloWorld
         static bool hasSeen;
     }
 }
+
+
+
+//CLR = Common Language Runtime
