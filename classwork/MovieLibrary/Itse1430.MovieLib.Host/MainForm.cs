@@ -10,7 +10,7 @@ namespace Itse1430.MovieLib.Host
             //int x = 10;
             InitializeComponent ();
 
-            var movie = new Movie ();
+            Movie movie = new Movie ();
         }
     }
 }
