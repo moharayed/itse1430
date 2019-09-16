@@ -909,38 +909,6 @@ namespace Itse1430.Maze
                 return Command.Cancel;
             }
         }
-
-        static int ReadInt32 ( string message )
-        {
-            while (true)
-            {
-                Console.Write (message);
-
-                var input = Console.ReadLine ();
-
-                if (Int32.TryParse (input, out var result))
-                    return result;
-
-                Console.WriteLine ("Not a number");
-            }
-        }
-
-        static bool ReadBoolean ( string message )
-        {
-            while (true)
-            {
-                Console.Write (message);
-
-                string input = Console.ReadLine ();
-
-                bool result;
-                if (Boolean.TryParse (input, out result))
-                    return result;
-
-                Console.WriteLine ("Not a boolean");
-            }
-        }
-
     }
 }
 
