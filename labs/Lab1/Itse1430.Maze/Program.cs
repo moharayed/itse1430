@@ -888,7 +888,6 @@ namespace Itse1430.Maze
                 }
             }
         }
-
         static Command ParseCommand ( string input )
         {
             if (!String.IsNullOrEmpty (input))
