@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using System.Windows.Forms;
 
 namespace Itse1430.MovieLib.Host
 {
@@ -15,9 +11,9 @@ namespace Itse1430.MovieLib.Host
         [STAThread]
         static void Main ()
         {
-            Application.EnableVisualStyles ();
-            Application.SetCompatibleTextRenderingDefault (false);
-            Application.Run (new MainForm ());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
         }
     }
 }
