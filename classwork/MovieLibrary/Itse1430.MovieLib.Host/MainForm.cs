@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Itse1430.MovieLib.Host
@@ -7,10 +8,10 @@ namespace Itse1430.MovieLib.Host
     {
         public MainForm ()
         {
-            InitializeComponent();
-            
+            InitializeComponent ();
+
             //Itse1430.MovieLib.Movie
-            Movie movie = new Movie();
+            Movie movie = new Movie ();
             movie.Title = "Jaws";
             movie.Description = movie.Title;
         }
@@ -18,18 +19,18 @@ namespace Itse1430.MovieLib.Host
         //Called when Movie\Add selected
         private void OnMovieAdd ( object sender, EventArgs e )
         {
-            var form = new MovieForm();
+            var form = new MovieForm ();
 
             //Modeless - does not block main window
             //form.Show();
 
             //Show the new movie form modally
-            if (form.ShowDialog(this) == DialogResult.OK)
+            if (form.ShowDialog (this) == DialogResult.OK)
             {
-                AddMovie(form.Movie);
-                UpdateUI();
+                AddMovie (form.Movie);
+                UpdateUI ();
             };
-        }        
+        }
 
         private Movie GetSelectedMovie ()
         {
@@ -39,54 +40,61 @@ namespace Itse1430.MovieLib.Host
         private void OnMovieEdit ( object sender, EventArgs e )
         {
             //Get selected movie
-            var movie = GetSelectedMovie();
+            var movie = GetSelectedMovie ();
             if (movie == null)
                 return;
 
-            var form = new MovieForm();
+            var form = new MovieForm ();
             form.Movie = movie;
-            
-            if (form.ShowDialog(this) == DialogResult.OK)
+
+            if (form.ShowDialog (this) == DialogResult.OK)
             {
                 //TODO: Change to update
-                RemoveMovie(movie);
-                AddMovie(form.Movie);
-                UpdateUI();
+                //RemoveMovie(movie);
+                RemoveMovie (form.Movie);
+                AddMovie (form.Movie);
+                UpdateUI ();
             };
         }
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
-            var movie = GetSelectedMovie();
+            var movie = GetSelectedMovie ();
             if (movie == null)
                 return;
 
             //Confirmation
             var msg = $"Are you sure you want to delete {movie.Title}?";
-            var result = MessageBox.Show(msg, "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show (msg, "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes)
                 return;
 
             //Delete it
-            RemoveMovie(movie);
-            UpdateUI();
+            RemoveMovie (movie);
+            UpdateUI ();
         }
 
         private void OnFileExit ( object sender, EventArgs e )
         {
-            Close();
+            Close ();
         }
 
         private void OnHelpAbout ( object sender, EventArgs e )
         {
-            var form = new AboutForm();
-            form.ShowDialog(this);            
+            var form = new AboutForm ();
+            form.ShowDialog (this);
         }
 
         private void UpdateUI ()
         {
-            var movies = GetMovies();
-            _lstMovies.Items.AddRange(movies);
+            var movies = GetMovies ();
+
+            //Programmatic approach
+            //_lstMovies.Items.Clear();
+            //_lstMovies.Items.AddRange(movies);
+
+            //For more complex bindings
+            _lstMovies.DataSource = movies;
         }
 
         private void AddMovie ( Movie movie )
@@ -118,8 +126,19 @@ namespace Itse1430.MovieLib.Host
 
         private Movie[] GetMovies ()
         {
-            //TODO: Filter out empty movies
-            return _movies;
+            //Filter out empty movies
+            var count = 0;
+            foreach (var movie in _movies)
+                if (movie != null)
+                    ++count;
+
+            var index = 0;
+            var movies = new Movie[count];
+            foreach (var movie in _movies)
+                if (movie != null)
+                    movies[index++] = movie;
+
+            return movies;
         }
 
         private Movie[] _movies = new Movie[100];
