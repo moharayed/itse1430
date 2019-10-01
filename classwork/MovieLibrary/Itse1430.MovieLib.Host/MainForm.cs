@@ -34,7 +34,35 @@ namespace Itse1430.MovieLib.Host
 
         private Movie GetSelectedMovie ()
         {
-            return _movies[0];
+            //return _lstMovies.SelectedItem as Movie;
+            var item = _lstMovies.SelectedItem;
+            //if (item == null)
+            //    return null;
+
+            //Movie or null
+            return item as Movie;
+
+            ////Other approaches
+            ////C-style cast
+            //(Movie)item;
+
+            ////Old approach 1
+            //var tempVar = item as Movie;
+            //if (tempVar != null)
+            //{
+            //};
+
+            ////Old approach 2
+            //if (item is Movie)
+            //{
+            //    var i = (Movie)item;
+            //    //Do something with movie
+            //}
+
+            ////Pattern Matching
+            //if (item is Movie movie)
+            //{
+            //};
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
@@ -50,8 +78,8 @@ namespace Itse1430.MovieLib.Host
             if (form.ShowDialog (this) == DialogResult.OK)
             {
                 //TODO: Change to update
-                //RemoveMovie(movie);
-                RemoveMovie (form.Movie);
+                RemoveMovie(movie);
+               // RemoveMovie (form.Movie);
                 AddMovie (form.Movie);
                 UpdateUI ();
             };
@@ -59,6 +87,24 @@ namespace Itse1430.MovieLib.Host
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
+            //Demo
+            var menuItem = sender as Button;
+            //This will crash if menuItem is null
+            var text = menuItem.Text;
+
+            //Handle null - as statement
+            if (menuItem != null)
+                text = menuItem.Text;
+            else
+                text = "";
+
+            //As expression
+            var text2 = (menuItem != null) ? menuItem.Text : "";
+
+            //Null coalescing menuItem ?? "";
+            //Null conditional
+            var text3 = menuItem?.Text ?? "";
+
             var movie = GetSelectedMovie ();
             if (movie == null)
                 return;
