@@ -130,11 +130,12 @@
             // _lstMovies
             // 
             this._lstMovies.DisplayMember = "Title";
+            this._lstMovies.Dock = System.Windows.Forms.DockStyle.Fill;
             this._lstMovies.FormattingEnabled = true;
-            this._lstMovies.Location = new System.Drawing.Point(10, 33);
-            this._lstMovies.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this._lstMovies.Location = new System.Drawing.Point(0, 24);
+            this._lstMovies.Margin = new System.Windows.Forms.Padding(2);
             this._lstMovies.Name = "_lstMovies";
-            this._lstMovies.Size = new System.Drawing.Size(487, 225);
+            this._lstMovies.Size = new System.Drawing.Size(505, 242);
             this._lstMovies.TabIndex = 1;
             // 
             // MainForm
@@ -146,7 +147,7 @@
             this.Controls.Add(this._lstMovies);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Movie Library";
             this.menuStrip1.ResumeLayout(false);

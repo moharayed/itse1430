@@ -87,23 +87,25 @@ namespace Itse1430.MovieLib.Host
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
-            //Demo
-            var menuItem = sender as Button;
-            //This will crash if menuItem is null
-            var text = menuItem.Text;
+            #region Playing with null
+            //var menuItem = sender as Button;
+            ////This will crash if menuItem is null
+            ////var text = menuItem.Text;
 
-            //Handle null - as statement
-            if (menuItem != null)
-                text = menuItem.Text;
-            else
-                text = "";
+            ////Handle null - as statement
+            //var text = "";
+            //if (menuItem != null)
+            //    text = menuItem.Text;
+            //else
+            //    text = "";
 
-            //As expression
-            var text2 = (menuItem != null) ? menuItem.Text : "";
+            ////As expression
+            //var text2 = (menuItem != null) ? menuItem.Text : "";
 
-            //Null coalescing menuItem ?? "";
-            //Null conditional
-            var text3 = menuItem?.Text ?? "";
+            ////Null coalescing menuItem ?? "";
+            ////Null conditional operator
+            //var text3 = menuItem?.Text ?? "";
+            #endregion
 
             var movie = GetSelectedMovie ();
             if (movie == null)
