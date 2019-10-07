@@ -12,7 +12,7 @@ namespace Itse1430.MovieLib.Host
 
             //Itse1430.MovieLib.Movie
             Movie movie = new Movie ();
-            movie.Title = "Jaws";
+            //movie.Title = "Jaws";
             movie.Description = movie.Title;
         }
 
