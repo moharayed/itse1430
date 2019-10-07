@@ -35,6 +35,8 @@ namespace Itse1430.MovieLib.Host
                 cbRating.Text = Movie.Rating;
                 chkHasSeen.Checked = Movie.HasSeen;
             };
+
+            ValidateChildren ();
         }
 
         private void OnSave ( object sender, EventArgs e )
@@ -89,7 +91,10 @@ namespace Itse1430.MovieLib.Host
             {
                 e.Cancel = true;
                 _errors.SetError (control, "Name is required");
-            };
+            } else
+            {
+                _errors.SetError (control, "");
+            }
         }
 
         private void OnValidatingReleaseYear ( object sender, CancelEventArgs e )
@@ -98,7 +103,13 @@ namespace Itse1430.MovieLib.Host
 
             var value = GetAsInt32 (control);
             if (value < 1900)
+            {
                 e.Cancel = true;
+                _errors.SetError (control, "Release year >= 1900");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
         }
 
         private void OnValidatingRunLength ( object sender, CancelEventArgs e )
@@ -107,16 +118,28 @@ namespace Itse1430.MovieLib.Host
 
             var value = GetAsInt32 (control);
             if (value < 0)
+            {
                 e.Cancel = true;
+                _errors.SetError (control, "Run length must be >= 0");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
         }
 
         private void OnValidatingRating ( object sender, CancelEventArgs e )
         {
             var control = sender as ComboBox;
 
-            //Name is required
-            if (control.SelectedText == "")
+            //Text is required
+            if (control.SelectedIndex == -1)
+            {
                 e.Cancel = true;
+                _errors.SetError (control, "Rating is required");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
         }
     }
 }
