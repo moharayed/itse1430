@@ -14,9 +14,9 @@ namespace CharacterCreator.Winforms
         public AboutForm ()
         {
             InitializeComponent ();
-            this.Text = String.Format ("AboutForm");
+            this.Text = String.Format ("About Character Creator");
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format ("Version {0}", AssemblyVersion);
+            this.labelVersion.Text = String.Format ("Class: ITSE-1430");
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
