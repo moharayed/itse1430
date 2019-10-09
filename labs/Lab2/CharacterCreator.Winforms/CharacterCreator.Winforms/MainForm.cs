@@ -16,5 +16,16 @@ namespace CharacterCreator.Winforms
         {
             InitializeComponent ();
         }
+
+        private void OnFileExit ( object sender, EventArgs e )
+        {
+            Close ();
+        }
+
+        private void OnHelpAbout ( object sender, EventArgs e )
+        {
+            var form = new AboutForm ();
+            form.ShowDialog (this);
+        }
     }
 }
