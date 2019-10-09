@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -147,41 +148,44 @@ namespace Itse1430.MovieLib.Host
 
         private void AddMovie ( Movie movie )
         {
-            //Add to array
-            for (var index = 0; index < _movies.Length; ++index)
-            {
-                if (_movies[index] == null)
-                {
-                    _movies[index] = movie;
-                    return;
-                };
-            };
+            _movies.Add (movie);
+
+            ////Add to array
+            //for (var index = 0; index < _movies.Count; ++index)
+            //{
+            //    if (_movies[index] == null) - Section 2 stuff
+            //    {
+            //        _movies[index] = movie;
+            //        return;
+            //    };
+            //};
         }
 
         private void RemoveMovie ( Movie movie )
         {
-            //Remove from array
-            for (var index = 0; index < _movies.Length; ++index)
-            {
-                //This won't work
-                if (_movies[index] == movie)
-                {
-                    _movies[index] = null;
-                    return;
-                };
-            };
+            _movies.Remove (movie);
+            ////Remove from array
+            //for (var index = 0; index < _movies.Count; ++index)
+            //{
+            //    //This won't work
+            //    if (_movies[index] == movie) - Section 2 stuff
+            //    {
+            //        _movies[index] = null;
+            //        return;
+            //    };
+            //};
         }
 
         private Movie[] GetMovies ()
         {
-            //Filter out empty movies
-            var count = 0;
-            foreach (var movie in _movies)
-                if (movie != null)
-                    ++count;
+            ////Filter out empty movies
+            //var count = 0;
+            //foreach (var movie in _movies) - Section 2 stuff
+            //    if (movie != null)
+            //        ++count;
 
             var index = 0;
-            var movies = new Movie[count];
+            var movies = new Movie[_movies.Count];
             foreach (var movie in _movies)
                 if (movie != null)
                     movies[index++] = movie;
@@ -189,6 +193,8 @@ namespace Itse1430.MovieLib.Host
             return movies;
         }
 
-        private Movie[] _movies = new Movie[100];
+        //private Movie[] _movies = new Movie[100]; - used for project 2
+
+        private List<Movie> _movies = new List<Movie> ();
     }
 }
