@@ -44,11 +44,5 @@
     <Compile Include="Character.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CharacterCreator.Winforms\CharacterCreator.Winforms.csproj">
-      <Project>{4431b077-12ff-4190-8eeb-2dcd00273365}</Project>
-      <Name>CharacterCreator.Winforms</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
