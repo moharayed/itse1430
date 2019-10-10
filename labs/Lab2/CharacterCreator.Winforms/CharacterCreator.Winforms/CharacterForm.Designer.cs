@@ -37,14 +37,17 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this._txtName = new System.Windows.Forms.TextBox();
+            this._txtStrength = new System.Windows.Forms.TextBox();
+            this.cbProfession = new System.Windows.Forms.ComboBox();
+            this.cbRace = new System.Windows.Forms.ComboBox();
+            this._txtIntelligence = new System.Windows.Forms.TextBox();
+            this._txtAgility = new System.Windows.Forms.TextBox();
+            this._txtConstitution = new System.Windows.Forms.TextBox();
+            this._txtCharisma = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this._txtDescription = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -59,7 +62,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(342, 34);
+            this.label2.Location = new System.Drawing.Point(342, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 17);
             this.label2.TabIndex = 1;
@@ -128,77 +131,129 @@
             this.label9.TabIndex = 8;
             this.label9.Text = "Charisma";
             // 
-            // textBox1
+            // _txtName
             // 
-            this.textBox1.Location = new System.Drawing.Point(100, 31);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(144, 22);
-            this.textBox1.TabIndex = 9;
+            this._txtName.Location = new System.Drawing.Point(100, 31);
+            this._txtName.Name = "_txtName";
+            this._txtName.Size = new System.Drawing.Size(173, 22);
+            this._txtName.TabIndex = 9;
             // 
-            // textBox2
+            // _txtStrength
             // 
-            this.textBox2.Location = new System.Drawing.Point(100, 206);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 10;
+            this._txtStrength.Location = new System.Drawing.Point(100, 206);
+            this._txtStrength.Name = "_txtStrength";
+            this._txtStrength.Size = new System.Drawing.Size(100, 22);
+            this._txtStrength.TabIndex = 10;
+            this._txtStrength.Text = "50";
             // 
-            // comboBox1
+            // cbProfession
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(100, 74);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 24);
-            this.comboBox1.TabIndex = 11;
+            this.cbProfession.FormattingEnabled = true;
+            this.cbProfession.Items.AddRange(new object[] {
+            "Fighter",
+            "Hunter",
+            "Priest",
+            "Rogue",
+            "Wizard"});
+            this.cbProfession.Location = new System.Drawing.Point(100, 74);
+            this.cbProfession.Name = "cbProfession";
+            this.cbProfession.Size = new System.Drawing.Size(121, 24);
+            this.cbProfession.TabIndex = 11;
             // 
-            // comboBox2
+            // cbRace
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(100, 111);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 24);
-            this.comboBox2.TabIndex = 12;
+            this.cbRace.FormattingEnabled = true;
+            this.cbRace.Items.AddRange(new object[] {
+            "Dwarf",
+            "Elf",
+            "Gnome",
+            "Half Elf",
+            "Human"});
+            this.cbRace.Location = new System.Drawing.Point(100, 111);
+            this.cbRace.Name = "cbRace";
+            this.cbRace.Size = new System.Drawing.Size(121, 24);
+            this.cbRace.TabIndex = 12;
             // 
-            // textBox3
+            // _txtIntelligence
             // 
-            this.textBox3.Location = new System.Drawing.Point(100, 248);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 22);
-            this.textBox3.TabIndex = 13;
+            this._txtIntelligence.Location = new System.Drawing.Point(100, 248);
+            this._txtIntelligence.Name = "_txtIntelligence";
+            this._txtIntelligence.Size = new System.Drawing.Size(100, 22);
+            this._txtIntelligence.TabIndex = 13;
+            this._txtIntelligence.Text = "50";
             // 
-            // textBox4
+            // _txtAgility
             // 
-            this.textBox4.Location = new System.Drawing.Point(100, 285);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 22);
-            this.textBox4.TabIndex = 14;
+            this._txtAgility.Location = new System.Drawing.Point(100, 285);
+            this._txtAgility.Name = "_txtAgility";
+            this._txtAgility.Size = new System.Drawing.Size(100, 22);
+            this._txtAgility.TabIndex = 14;
+            this._txtAgility.Text = "50";
             // 
-            // textBox5
+            // _txtConstitution
             // 
-            this.textBox5.Location = new System.Drawing.Point(100, 327);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 22);
-            this.textBox5.TabIndex = 15;
+            this._txtConstitution.Location = new System.Drawing.Point(100, 327);
+            this._txtConstitution.Name = "_txtConstitution";
+            this._txtConstitution.Size = new System.Drawing.Size(100, 22);
+            this._txtConstitution.TabIndex = 15;
+            this._txtConstitution.Text = "50";
             // 
-            // textBox6
+            // _txtCharisma
             // 
-            this.textBox6.Location = new System.Drawing.Point(100, 365);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 22);
-            this.textBox6.TabIndex = 16;
+            this._txtCharisma.Location = new System.Drawing.Point(100, 365);
+            this._txtCharisma.Name = "_txtCharisma";
+            this._txtCharisma.Size = new System.Drawing.Size(100, 22);
+            this._txtCharisma.TabIndex = 16;
+            this._txtCharisma.Text = "50";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(507, 415);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 17;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.OnSave);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(588, 415);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 18;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            // 
+            // _txtDescription
+            // 
+            this._txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._txtDescription.Location = new System.Drawing.Point(345, 87);
+            this._txtDescription.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this._txtDescription.Multiline = true;
+            this._txtDescription.Name = "_txtDescription";
+            this._txtDescription.Size = new System.Drawing.Size(304, 196);
+            this._txtDescription.TabIndex = 19;
             // 
             // CharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(675, 450);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this._txtDescription);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this._txtCharisma);
+            this.Controls.Add(this._txtConstitution);
+            this.Controls.Add(this._txtAgility);
+            this.Controls.Add(this._txtIntelligence);
+            this.Controls.Add(this.cbRace);
+            this.Controls.Add(this.cbProfession);
+            this.Controls.Add(this._txtStrength);
+            this.Controls.Add(this._txtName);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -226,13 +281,16 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox _txtName;
+        private System.Windows.Forms.TextBox _txtStrength;
+        private System.Windows.Forms.ComboBox cbProfession;
+        private System.Windows.Forms.ComboBox cbRace;
+        private System.Windows.Forms.TextBox _txtIntelligence;
+        private System.Windows.Forms.TextBox _txtAgility;
+        private System.Windows.Forms.TextBox _txtConstitution;
+        private System.Windows.Forms.TextBox _txtCharisma;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox _txtDescription;
     }
 }
