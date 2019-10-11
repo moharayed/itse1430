@@ -63,7 +63,12 @@ namespace CharacterCreator.Winforms
             character.Constitution = GetAsInt32 (_txtConstitution);
             character.Charisma = GetAsInt32 (_txtCharisma);
 
-            //add validation
+            var message = character.Validate ();
+            if (!String.IsNullOrEmpty (message))
+            {
+                MessageBox.Show (this, message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            };
 
             Character = character;
             DialogResult = DialogResult.OK;
@@ -74,6 +79,154 @@ namespace CharacterCreator.Winforms
         {
             DialogResult = DialogResult.Cancel;
             Close ();
+        }
+
+        private void OnValidatingName ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            if (control.Text == "")
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Name is required");
+            } 
+            else
+            {
+                _errors.SetError (control, "");
+            }
+        }
+
+        private void OnValidatingProfession ( object sender, CancelEventArgs e )
+        {
+            var control = sender as ComboBox;
+
+            if (control.SelectedIndex == -1)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Profession is required");
+            } 
+            else
+            {
+                _errors.SetError (control, "");
+            }
+        }
+
+        private void OnValidatingRace ( object sender, CancelEventArgs e )
+        {
+            var control = sender as ComboBox;
+
+            if (control.SelectedIndex == -1)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Race is required");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
+        }
+
+        private void OnValidatingStrength ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            var value = GetAsInt32 (control);
+            if(value < 0 || value > 100)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            }else
+            {
+                _errors.SetError (control, "");
+            }
+            //if (value < 0)
+            //{
+            //    e.Cancel = true;
+            //    _errors.SetError (control, "Attribute must be between 0 to 100");
+            //}else if (value > 100)
+            //{
+            //    e.Cancel = true;
+            //    _errors.SetError (control, "Attribute must be between 0 to 100");
+            //} else
+            //{
+            //    _errors.SetError (control, "");
+            //}
+        }
+
+        private void OnValidatingIntelligence ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            var value = GetAsInt32 (control);
+            if (value < 0)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            }
+            else if(value > 100)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
+        }
+
+        private void OnValidatingAgility ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            var value = GetAsInt32 (control);
+            if (value < 0)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            } else if (value > 100)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
+        }
+
+        private void OnValidatingConstitution ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            var value = GetAsInt32 (control);
+            if (value < 0)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            } else if (value > 100)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
+        }
+
+        private void OnValidatingCharisma ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            var value = GetAsInt32 (control);
+            if (value < 0)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            } else if (value > 100)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Attribute must be between 0 to 100");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
         }
     }
 }

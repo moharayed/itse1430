@@ -136,7 +136,8 @@ namespace Itse1430.MovieLib.Host
             {
                 e.Cancel = true;
                 _errors.SetError (control, "Rating is required");
-            } else
+            } 
+            else
             {
                 _errors.SetError (control, "");
             }

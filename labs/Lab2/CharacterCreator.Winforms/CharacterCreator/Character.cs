@@ -11,7 +11,58 @@ namespace CharacterCreator
     /// </summary>
     public class Character
     {
+        public string Validate()
+        {
+            if (String.IsNullOrEmpty (this.Name))
+                return "Name is required";
 
+            if (String.IsNullOrEmpty (Profession))
+                return "Profession is required";
+
+            if (String.IsNullOrEmpty (Race))
+                return "Race is required";
+
+            if (Strength < 0)
+            {
+                return "Attribute must be between 0 to 100";
+            }else if (Strength > 100)
+            {
+                return "Attribute must be between 0 to 100";
+            }
+
+            if (Intelligence < 0)
+            {
+                return "Attribute must be between 0 to 100";
+            } else if (Intelligence > 100)
+            {
+                return "Attribute must be between 0 to 100";
+            }
+
+            if (Agility < 0)
+            {
+                return "Attribute must be between 0 to 100";
+            } else if (Agility > 100)
+            {
+                return "Attribute must be between 0 to 100";
+            }
+
+            if (Constitution < 0)
+            {
+                return "Attribute must be between 0 to 100";
+            } else if (Constitution > 100)
+            {
+                return "Attribute must be between 0 to 100";
+            }
+
+            if (Charisma < 0)
+            {
+                return "Attribute must be between 0 to 100";
+            } else if (Charisma > 100)
+            {
+                return "Attribute must be between 0 to 100";
+            }
+            return "";
+        }
         public string Name
         {
             get { return _name ?? ""; }
@@ -52,11 +103,5 @@ namespace CharacterCreator
         private string _profession = "";
         private string _race = "";
         private string _description = "";
-        //private string _strength = "";
-        //private string _intelligence = "";
-        //private string _agility = "";
-        //private string _constitution = "";
-        //private string _charisma = "";
-
     }
 }
