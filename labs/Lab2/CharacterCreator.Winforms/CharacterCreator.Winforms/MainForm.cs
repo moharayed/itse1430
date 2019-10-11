@@ -39,8 +39,6 @@ namespace CharacterCreator.Winforms
             }
         }
 
-
-
         private Character GetSelectedCharacter()
         {
             var item = _lstCharacters.SelectedItem;
