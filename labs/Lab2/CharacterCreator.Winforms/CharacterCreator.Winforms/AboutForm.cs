@@ -21,7 +21,6 @@ namespace CharacterCreator.Winforms
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
         }
-
         #region Assembly Attribute Accessors
 
         public string AssemblyTitle

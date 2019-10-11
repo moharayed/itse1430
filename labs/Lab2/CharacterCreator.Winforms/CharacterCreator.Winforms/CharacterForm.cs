@@ -84,7 +84,7 @@ namespace CharacterCreator.Winforms
         private void OnValidatingName ( object sender, CancelEventArgs e )
         {
             var control = sender as TextBox;
-
+ 
             if (control.Text == "")
             {
                 e.Cancel = true;

@@ -100,8 +100,11 @@ namespace CharacterCreator
         public int Charisma { get; set; } = 100;
         
         private string _name = "";
+
         private string _profession = "";
+
         private string _race = "";
+
         private string _description = "";
     }
 }

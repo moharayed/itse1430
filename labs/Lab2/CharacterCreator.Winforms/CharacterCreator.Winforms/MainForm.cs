@@ -99,7 +99,7 @@ namespace CharacterCreator.Winforms
             var character = GetSelectedCharacter ();
             if (character == null)
                 return;
-
+ 
             var form = new CharacterForm ();
             form.Character = character;
 
