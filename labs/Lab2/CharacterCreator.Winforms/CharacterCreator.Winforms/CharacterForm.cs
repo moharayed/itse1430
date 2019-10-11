@@ -130,7 +130,7 @@ namespace CharacterCreator.Winforms
             var control = sender as TextBox;
 
             var value = GetAsInt32 (control);
-            if(value < 0 || value > 100)
+            if(value <= 0 || value > 100)
             {
                 e.Cancel = true;
                 _errors.SetError (control, "Attribute must be between 0 to 100");
@@ -138,18 +138,6 @@ namespace CharacterCreator.Winforms
             {
                 _errors.SetError (control, "");
             }
-            //if (value < 0)
-            //{
-            //    e.Cancel = true;
-            //    _errors.SetError (control, "Attribute must be between 0 to 100");
-            //}else if (value > 100)
-            //{
-            //    e.Cancel = true;
-            //    _errors.SetError (control, "Attribute must be between 0 to 100");
-            //} else
-            //{
-            //    _errors.SetError (control, "");
-            //}
         }
 
         private void OnValidatingIntelligence ( object sender, CancelEventArgs e )
@@ -157,12 +145,7 @@ namespace CharacterCreator.Winforms
             var control = sender as TextBox;
 
             var value = GetAsInt32 (control);
-            if (value < 0)
-            {
-                e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
-            }
-            else if(value > 100)
+            if (value <= 0 || value > 100)
             {
                 e.Cancel = true;
                 _errors.SetError (control, "Attribute must be between 0 to 100");
@@ -177,11 +160,7 @@ namespace CharacterCreator.Winforms
             var control = sender as TextBox;
 
             var value = GetAsInt32 (control);
-            if (value < 0)
-            {
-                e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
-            } else if (value > 100)
+            if (value <= 0 || value > 100)
             {
                 e.Cancel = true;
                 _errors.SetError (control, "Attribute must be between 0 to 100");
@@ -196,11 +175,7 @@ namespace CharacterCreator.Winforms
             var control = sender as TextBox;
 
             var value = GetAsInt32 (control);
-            if (value < 0)
-            {
-                e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
-            } else if (value > 100)
+            if (value <= 0 || value > 100)
             {
                 e.Cancel = true;
                 _errors.SetError (control, "Attribute must be between 0 to 100");
@@ -215,11 +190,7 @@ namespace CharacterCreator.Winforms
             var control = sender as TextBox;
 
             var value = GetAsInt32 (control);
-            if (value < 0)
-            {
-                e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
-            } else if (value > 100)
+            if (value <= 0 || value > 100)
             {
                 e.Cancel = true;
                 _errors.SetError (control, "Attribute must be between 0 to 100");
