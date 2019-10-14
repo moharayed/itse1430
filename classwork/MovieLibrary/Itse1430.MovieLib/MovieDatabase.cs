@@ -9,22 +9,36 @@ namespace Itse1430.MovieLib
     /// <summary>Manages the movies in a database.</summary>
     public class MovieDatabase
     {
+        public MovieDatabase ()
+        {
+            //Collection initializer
+            _movies = new List<Movie> () {
+                new Movie () {Id = ++_id, Title = "Jaws",     ReleaseYear = 1979, Rating = "PG",},
+                new Movie () {Id = ++_id, Title = "StarWars", ReleaseYear = 1977, Rating = "PG",},
+                new Movie () {Id = ++_id, Title = "Distance", ReleaseYear = 1989, Rating = "PG",},
+                new Movie () {Id = ++_id, Title = "Spy Kids", ReleaseYear = 1999, Rating = "PG-13",}
+            };
+        }
         public Movie Add ( Movie movie )
         {
+            //TODO: Validation
+            if (movie == null)
+                return null;
+            if (!String.IsNullOrEmpty (movie.Validate ()))
+                return null;
+
+            //Name must be unique
+            var existing = FindMovie (movie.Title);
+            if (existing != null)
+                return null;
+
+            //Add movie
             movie.Id = ++_id;
 
+            var newMovie = Clone (new Movie (), movie);
             _movies.Add (movie);
 
             return movie;
-            ////Add to array
-            //for (var index = 0; index < _movies.Count; ++index)
-            //{
-            //    if (_movies[index] == null) - Section 2 stuff
-            //    {
-            //        _movies[index] = movie;
-            //        return;
-            //    };
-            //};
         }
 
         public void Remove ( int id )
@@ -32,66 +46,79 @@ namespace Itse1430.MovieLib
             var movie = FindMovie (id);
             if (movie != null)
                 _movies.Remove (movie);
-
-
-            ////Remove from array
-            //for (var index = 0; index < _movies.Count; ++index)
-            //{
-            //    //This won't work
-            //    if (_movies[index] == movie) - Section 2 stuff
-            //    {
-            //        _movies[index] = null;
-            //        return;
-            //    };
-            //};
         }
 
         public Movie Get (int id)
         {
-            return FindMovie (id);
+            //Validate
+            if (id <= 0)
+                return null;
+
+            var movie = FindMovie (id);
+            return movie != null ? Clone (new Movie (), movie) : null;
         }
 
         public Movie[] GetAll ()
         {
-            ////Filter out empty movies
-            //var count = 0;
-            //foreach (var movie in _movies) - Section 2 stuff
-            //    if (movie != null)
-            //        ++count;
-
             var index = 0;
             var movies = new Movie[_movies.Count];
             foreach (var movie in _movies)
                 if (movie != null)
-                    movies[index++] = movie;
+                    movies[index++] = Clone (new Movie (), movie);
 
             return movies;
         }
 
         public void Update ( int id, Movie newMovie )
         {
-            var existing = FindMovie (id);
+            //Validate
+            if (id <= 0)
+                return;
+            if (newMovie == null)
+                return;
+            if (!String.IsNullOrEmpty (newMovie.Validate ()))
+                return;
+
+            //Must be unique
+            var existing = FindMovie (newMovie.Title);
+            if (existing != null && existing.Id != id)
+                return;
+
+            existing = FindMovie (id);
             if (existing == null)
                 return; //TODO: Error
 
             //Update existing movie
-            existing.Description = newMovie.Description;
-            existing.HasSeen = newMovie.HasSeen;
-            existing.Rating = newMovie.Rating;
-            existing.ReleaseYear = newMovie.ReleaseYear;
-            existing.RunLength = newMovie.RunLength;
-            existing.Title = newMovie.Title;
+            newMovie.Id = id; 
+            Clone (existing, newMovie);
+        }
 
+        private Movie Clone ( Movie target, Movie source )
+        {
+            target.Id = source.Id;
+            target.Description = source.Description;
+            target.HasSeen = source.HasSeen;
+            target.Rating = source.Rating;
+            target.ReleaseYear = source.ReleaseYear;
+            target.RunLength = source.RunLength;
+            target.Title = source.Title;
 
-            //_movies.Remove (movie);
-            //_movies.Add (movie);
-
+            return target;
         }
 
         private Movie FindMovie ( int id )
         {
             foreach (var movie in _movies)
                 if (movie.Id == id)
+                    return movie;
+
+            return null;
+        }
+
+        private Movie FindMovie ( string name )
+        {
+            foreach (var movie in _movies)
+                if (String.Compare(movie.Title, name, true) == 0)
                     return movie;
 
             return null;
