@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Itse1430.MovieLib
 {
-    public class ObjectValidator
+    public static class ObjectValidator
     {
-        public IEnumerable<ValidationResult> TryValidateObject ( IValidatableObject value )
+        public static IEnumerable<ValidationResult> TryValidateObject ( IValidatableObject value )
         {
             var results = new List<ValidationResult> ();
 
@@ -21,3 +21,9 @@ namespace Itse1430.MovieLib
         }
     }
 }
+//Static def =
+//1) no 'this'
+//2) no instance members
+
+//Caller = 
+//1) no instance

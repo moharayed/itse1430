@@ -1,25 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Itse1430.MovieLib
 {
     /// <summary>Manages the movies in a database.</summary>
-    public class MovieDatabase
+    public abstract class MovieDatabase : IMovieDatabase
     {
-        public MovieDatabase ()
-        {
-            //Collection initializer
-            _movies = new List<Movie> () {
-                new Movie () {Id = ++_id, Title = "Jaws",     ReleaseYear = 1979, Rating = "PG",},
-                new Movie () {Id = ++_id, Title = "StarWars", ReleaseYear = 1977, Rating = "PG",},
-                new Movie () {Id = ++_id, Title = "Distance", ReleaseYear = 1989, Rating = "PG",},
-                new Movie () {Id = ++_id, Title = "Spy Kids", ReleaseYear = 1999, Rating = "PG-13",}
-            };
-        }
         public Movie Add ( Movie movie )
         {
             //TODO: Validation
@@ -27,52 +14,51 @@ namespace Itse1430.MovieLib
                 return null;
 
             //if (!String.IsNullOrEmpty (movie.Validate ()))
-            var context = new ValidationContext (movie);
-            var results = movie.Validate (context);
+            //var context = new ValidationContext (movie);
+            //var results = movie.Validate (context);
+            var results = ObjectValidator.TryValidateObject (movie);
             if (results.Count () > 0)
                 return null;
 
             //Name must be unique
-            var existing = FindMovie (movie.Title);
+            var existing = GetByNameCore (movie.Title);
             if (existing != null)
                 return null;
 
-            //Add movie
-            movie.Id = ++_id;
-
-            var newMovie = Clone (new Movie (), movie);
-            _movies.Add (movie);
-
-            return movie;
+            return AddCore (movie);
         }
+
+        /// <summary>Add a movie to database.</summary>
+        /// <param name="movie">Movie to add.</param>
+        /// <returns>Updated movie.</returns>
+        protected abstract Movie AddCore ( Movie movie );
 
         public void Remove ( int id )
         {
-            var movie = FindMovie (id);
-            if (movie != null)
-                _movies.Remove (movie);
+            //TODO: Validate ID
+            RemoveCore (id);
         }
 
-        public Movie Get (int id)
+        protected abstract void RemoveCore ( int id );
+
+        public Movie Get ( int id )
         {
             //Validate
             if (id <= 0)
                 return null;
 
-            var movie = FindMovie (id);
-            return movie != null ? Clone (new Movie (), movie) : null;
+            return GetCore (id);
         }
 
-        public Movie[] GetAll ()
+        protected abstract Movie GetCore ( int id );
+
+        public IEnumerable<Movie> GetAll ()
         {
-            var index = 0;
-            var movies = new Movie[_movies.Count];
-            foreach (var movie in _movies)
-                if (movie != null)
-                    movies[index++] = Clone (new Movie (), movie);
-
-            return movies;
+            return GetAllCore ();
         }
+
+        protected abstract IEnumerable<Movie> GetAllCore ();
+
 
         public void Update ( int id, Movie newMovie )
         {
@@ -83,62 +69,22 @@ namespace Itse1430.MovieLib
                 return;
 
             //if (!String.IsNullOrEmpty(movie.Validate()))
-            var context = new ValidationContext (newMovie);
-            var results = newMovie.Validate (context);
+            //var context = new ValidationContext (newMovie);
+            //var results = newMovie.Validate (context);
+            var results = ObjectValidator.TryValidateObject (newMovie);
             if (results.Count () > 0)
                 return;
 
             //Must be unique
-            var existing = FindMovie (newMovie.Title);
+            var existing = GetByNameCore (newMovie.Title);
             if (existing != null && existing.Id != id)
                 return;
 
-            existing = FindMovie (id);
-            if (existing == null)
-                return; //TODO: Error
-
-            //Update existing movie
-            newMovie.Id = id; 
-            Clone (existing, newMovie);
+            UpdateCore (id, newMovie);
         }
 
-        private Movie Clone ( Movie target, Movie source )
-        {
-            target.Id = source.Id;
-            target.Description = source.Description;
-            target.HasSeen = source.HasSeen;
-            target.Rating = source.Rating;
-            target.ReleaseYear = source.ReleaseYear;
-            target.RunLength = source.RunLength;
-            target.Title = source.Title;
+        protected abstract Movie UpdateCore ( int id, Movie newMovie );
 
-            return target;
-        }
-
-        private Movie FindMovie ( int id )
-        {
-            foreach (var movie in _movies)
-                if (movie.Id == id)
-                    return movie;
-
-            return null;
-        }
-
-        private Movie FindMovie ( string name )
-        {
-            foreach (var movie in _movies)
-                if (String.Compare(movie.Title, name, true) == 0)
-                    return movie;
-
-            return null;
-        }
-        //private Movie[] _movies = new Movie[100];
-        //Dynamically resizing array
-        private List<Movie> _movies = new List<Movie> ();
-
-        //Identical to List<T>, just wrong namespace
-        // using System.Collections.ObjectModel;
-        //private Collection<Movie> _movies = new Collection<Movie>();
-        private int _id = 0;
+        protected abstract Movie GetByNameCore ( string name );
     }
 }
