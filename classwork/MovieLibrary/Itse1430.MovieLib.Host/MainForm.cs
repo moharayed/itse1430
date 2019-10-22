@@ -17,7 +17,11 @@ namespace Itse1430.MovieLib.Host
         {
             base.OnLoad (e);
 
+            //Seed movies
             _movies = new MemoryMovieDatabase ();
+            var count = _movies.GetAll ().Count ();
+            if (count == 0)
+                MovieDatabaseExtentions.Seed (_movies);
 
             UpdateUI ();
         }
