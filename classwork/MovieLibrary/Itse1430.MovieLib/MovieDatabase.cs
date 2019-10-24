@@ -82,7 +82,7 @@ namespace Itse1430.MovieLib
 
             UpdateCore (id, newMovie);
         }
-
+        
         protected abstract Movie UpdateCore ( int id, Movie newMovie );
 
         protected abstract Movie GetByNameCore ( string name );

@@ -23,22 +23,28 @@ namespace Itse1430.MovieLib
         {
             //null coalescing
             // !String.IsNullOrEmpty(_title) ? _title : ""
-            get { return _title ?? ""; }
-            set { _title = value; }
+            //get { return _title ?? ""; }
+            get => _title ?? "";
+            //set { _title = value; }
+            set => _title = value;
         }
 
         /// <summary>Gets or sets the description of the movie.</summary>
         public string Description
         {
-            get { return _description ?? ""; }
-            set { _description = value; }
+            //get { return _description ?? ""; }
+            get => _description ?? "";
+            //set { _description = value; }
+            set => _description = value;
         }
 
         /// <summary>Gets or sets the rating of the movie.</summary>
         public string Rating
         {
-            get { return _rating ?? ""; }
-            set { _rating = value; }
+            //get { return _rating ?? ""; }
+            get => _rating ?? "";
+            //set { _rating = value; }
+            set => _rating = value;
         }
 
         /// <summary>Gets or sets the release year.</summary>        
@@ -72,31 +78,36 @@ namespace Itse1430.MovieLib
         //public readonly int ReleaseYearForColor = 1939;
 
         /// <summary>Determines if a movie is B&W.</summary>
-        public bool IsBlackAndWhite
-        {
-            //Calculated property, no backing field
-            //Just calculating a value
-            get { return ReleaseYear <= ReleaseYearForColor; }
+        //public bool IsBlackAndWhite
+        //{
+        //    //Calculated property, no backing field
+        //    //Just calculating a value
+        //    //get { return ReleaseYear <= ReleaseYearForColor; }
+        //    get => ReleaseYear <= ReleaseYearForColor;
 
-            //Not settable by anyone
-            //set { }
-        }
+        //    //Not settable by anyone
+        //    //set { }
+        //}
+
+        public bool IsBlackAndWhite => ReleaseYear <= ReleaseYearForColor;
 
         //Mixed accessibility - property must be most visible
         public string TestAccessibility
         {
             //Single accessor can be more restrictive
-            get { return ""; }
+            //get { return ""; }
+            get => "";
 
             //Not writable outside class
             private set { }
         }
         #endregion
 
-        public override string ToString ()
-        {
-            return $"{Title} ({ReleaseYear})";
-        }
+        public override string ToString () => $"{Title} ({ReleaseYear})";
+        //{
+        //    return
+        //}
+        
 
         /// <summary>Validates the movie.</summary>
         /// <returns>An error message if validation fails or empty string otherwise.</returns>
