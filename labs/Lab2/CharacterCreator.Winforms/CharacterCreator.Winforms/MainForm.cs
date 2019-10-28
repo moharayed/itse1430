@@ -19,7 +19,8 @@ namespace CharacterCreator.Winforms
 
         private void OnFileExit ( object sender, EventArgs e )
         {
-            Close ();
+            Close();
+
         }
 
         private void OnHelpAbout ( object sender, EventArgs e )
