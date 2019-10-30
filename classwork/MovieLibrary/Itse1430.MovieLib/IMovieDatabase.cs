@@ -14,3 +14,9 @@ namespace Itse1430.MovieLib
         void Update ( int id, Movie newMovie );
     }
 }
+/* 
+ * System Exception important
+ * 1)NREX
+ * 2)OutofmemoryEX
+ * 3)StackoverflowEX
+*/
