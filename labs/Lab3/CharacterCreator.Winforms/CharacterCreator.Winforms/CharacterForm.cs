@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -52,27 +53,40 @@ namespace CharacterCreator.Winforms
             if (!ValidateChildren ())
                 return;
 
-            var character = new Character ();
-            character.Name = _txtName.Text;
-            character.Description = _txtDescription.Text;
-            character.Profession = cbProfession.Text;
-            character.Race = cbRace.Text;
-            character.Strength = GetAsInt32 (_txtStrength);
-            character.Intelligence = GetAsInt32 (_txtIntelligence);
-            character.Agility = GetAsInt32 (_txtAgility);
-            character.Constitution = GetAsInt32 (_txtConstitution);
-            character.Charisma = GetAsInt32 (_txtCharisma);
-
-            var message = character.Validate ();
-            if (!String.IsNullOrEmpty (message))
+            var character = new Character () 
             {
-                MessageBox.Show (this, message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                Name = _txtName.Text,
+                Description = _txtDescription.Text,
+                Profession = cbProfession.Text,
+                Race = cbRace.Text,
+                Strength = GetAsInt32 (_txtStrength),
+                Intelligence = GetAsInt32 (_txtIntelligence),
+                Agility = GetAsInt32 (_txtAgility),
+                Constitution = GetAsInt32 (_txtConstitution),
+                Charisma = GetAsInt32 (_txtCharisma),
             };
+
+            if (!Validate (character))
+                return;
 
             Character = character;
             DialogResult = DialogResult.OK;
             Close ();
+        }
+
+        private bool Validate ( IValidatableObject character )
+        {
+            var results = ObjectValidator.TryValidateObject (character);
+            if (results.Count () > 0)
+            {
+                foreach (var result in results)
+                {
+                    MessageBox.Show (this, result.ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+                return false;
+            };
+
+            return true;
         }
 
         private void BtnCancel_Click ( object sender, EventArgs e )
@@ -133,7 +147,7 @@ namespace CharacterCreator.Winforms
             if(value <= 0 || value > 100)
             {
                 e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
+                _errors.SetError (control, "Attribute must be between 1 to 100");
             }else
             {
                 _errors.SetError (control, "");
@@ -148,7 +162,7 @@ namespace CharacterCreator.Winforms
             if (value <= 0 || value > 100)
             {
                 e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
+                _errors.SetError (control, "Attribute must be between 1 to 100");
             } else
             {
                 _errors.SetError (control, "");
@@ -163,7 +177,7 @@ namespace CharacterCreator.Winforms
             if (value <= 0 || value > 100)
             {
                 e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
+                _errors.SetError (control, "Attribute must be between 1 to 100");
             } else
             {
                 _errors.SetError (control, "");
@@ -178,7 +192,7 @@ namespace CharacterCreator.Winforms
             if (value <= 0 || value > 100)
             {
                 e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
+                _errors.SetError (control, "Attribute must be between 1 to 100");
             } else
             {
                 _errors.SetError (control, "");
@@ -193,7 +207,7 @@ namespace CharacterCreator.Winforms
             if (value <= 0 || value > 100)
             {
                 e.Cancel = true;
-                _errors.SetError (control, "Attribute must be between 0 to 100");
+                _errors.SetError (control, "Attribute must be between 1 to 100");
             } else
             {
                 _errors.SetError (control, "");

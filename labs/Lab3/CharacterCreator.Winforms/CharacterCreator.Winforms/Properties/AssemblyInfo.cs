@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("Name: Mohammed Rayed")]
-[assembly: AssemblyCopyright ("Lab: Character Creator")]
+[assembly: AssemblyCopyright ("Lab 3: Character Roster")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 
