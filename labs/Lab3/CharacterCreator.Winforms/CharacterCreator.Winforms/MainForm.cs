@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Name: Mohammed Rayed
+//Class: Itse1430
+//Project: Lab 3 Character Roster
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,6 +26,18 @@ namespace CharacterCreator.Winforms
 
         }
 
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad (e);
+
+            _characters = new MemoryCharacterDatabase ();
+            var count = _characters.GetAll ().Count ();
+            if (count == 0)
+                _characters.Seed ();
+
+            UpdateUI ();
+        }
+
         private void OnHelpAbout ( object sender, EventArgs e )
         {
             var form = new AboutForm ();
@@ -37,7 +52,7 @@ namespace CharacterCreator.Winforms
             {
                 _characters.Add (form.Character);
                 UpdateUI ();
-            }
+            };
         }
 
         private Character GetSelectedCharacter()
@@ -67,7 +82,7 @@ namespace CharacterCreator.Winforms
             {
                 _characters.Update (character.Id, form.Character);
                 UpdateUI ();
-            }
+            };
         }
 
         private void OnCharacterDelete ( object sender, EventArgs e )
@@ -85,6 +100,6 @@ namespace CharacterCreator.Winforms
             UpdateUI ();
         }
 
-        private CharacterDatabase _characters = new CharacterDatabase ();
+        private ICharacterDatabase _characters;
     }
 }

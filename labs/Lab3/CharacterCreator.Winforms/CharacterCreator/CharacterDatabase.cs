@@ -1,70 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterCreator
 {
-    public class CharacterDatabase
+    /// <summary>
+    /// Manages the characters
+    /// </summary>
+    public abstract class CharacterDatabase : ICharacterDatabase
     {
         public Character Add ( Character character )
         {
-            character.Id = ++_id;
-            _characters.Add (character);
-            return character;
+            if (character == null)
+                return null;
+
+            var results = ObjectValidator.TryValidateObject (character);
+            if (results.Count () > 0)
+                return null;
+
+            var existing = GetByNameCore (character.Name);
+            if (existing != null)
+                return null;
+
+            return AddCore (character);
         }
+
+        protected abstract Character AddCore ( Character character );
 
         public void Remove ( int id )
         {
-            var character = FindCharacter (id);
-            if (character != null)
-                _characters.Remove (character);
+            RemoveCore (id);
         }
+
+        protected abstract void RemoveCore ( int id );
 
         public Character Get ( int id )
         {
-            return FindCharacter (id);
+            if (id <= 0)
+                return null;
+
+            return GetCore (id);
         }
 
-        public Character[] GetAll ()
+        protected abstract Character GetCore ( int id );
+
+        public IEnumerable<Character> GetAll ()
         {
-            var index = 0;
-            var characters = new Character[_characters.Count];
-            foreach (var character in _characters)
-                if (character != null)
-                    characters[index++] = character;
-
-            return characters;
+            return GetAllCore ();
         }
+
+        protected abstract IEnumerable<Character> GetAllCore ();
 
         public void Update ( int id, Character newCharacter )
         {
-            var existing = FindCharacter (id);
-            if (existing == null)
+            if (id <= 0)
+                return;
+            if (newCharacter == null)
                 return;
 
-            existing.Description = newCharacter.Description;
-            existing.Name = newCharacter.Name;
-            existing.Profession = newCharacter.Profession;
-            existing.Race = newCharacter.Race;
-            existing.Strength = newCharacter.Strength;
-            existing.Intelligence = newCharacter.Intelligence;
-            existing.Agility = newCharacter.Agility;
-            existing.Constitution = newCharacter.Constitution;
-            existing.Charisma = newCharacter.Charisma;
+            var results = ObjectValidator.TryValidateObject (newCharacter);
+            if (results.Count () > 0)
+                return;
 
-        }
-        private Character FindCharacter ( int id )
-        {
-            foreach (var character in _characters)
-                if (character.Id == id)
-                    return character;
+            var existing = GetByNameCore (newCharacter.Name);
+            if (existing != null && existing.Id != id)
+                return;
 
-            return null;
+            UpdateCore (id, newCharacter);
         }
 
-        private List<Character> _characters = new List<Character> ();
-        private int _id = 0;
-    }    
+        protected abstract Character UpdateCore ( int id, Character newCharacter );
+
+        protected abstract Character GetByNameCore ( string name );
+
+    }
 }
