@@ -23,7 +23,7 @@ namespace Itse1430.MovieLib.Host
             _movies = new FileMovieDatabase (@"movies.csv");
             var count = _movies.GetAll ().Count ();
             if (count == 0)
-                //MovieDatabaseExtentions.Seed (_movies);
+                //MovieDatabaseExtensions.Seed(_movies);
                 _movies.Seed ();
 
             UpdateUI ();
@@ -34,9 +34,6 @@ namespace Itse1430.MovieLib.Host
         {
             var form = new MovieForm ();
 
-            //Modeless - does not block main window
-            //form.Show();
-
             //Show the new movie form modally
             if (form.ShowDialog (this) == DialogResult.OK)
             {
@@ -46,13 +43,19 @@ namespace Itse1430.MovieLib.Host
                     UpdateUI ();
                 } catch (ArgumentException ex)
                 {
-                    MessageBox.Show (ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show (ex.Message, "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                 } catch (ValidationException ex)
                 {
-                    MessageBox.Show (ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } catch (Exception ex)
+                    MessageBox.Show (ex.Message, "Validation Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                } catch //(Exception ex)
                 {
-                    MessageBox.Show ("Save failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show ("Save failed", "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
 
                     //throw;    //rethrow existing exception
                     //throw ex; //throwing a new exception
@@ -70,8 +73,9 @@ namespace Itse1430.MovieLib.Host
             //Movie or null
             return item as Movie;
 
-            //var firstMovie = _lstMovies.SelectedItems.OfType<Movie> ()
-            //                                         .FirstOrDefault ();
+            //var firstMovie = _lstMovies.SelectedItems
+            //                           .OfType<Movie>()
+            //                           .FirstOrDefault();
 
             #region Typecasting Demo
             ////Other approaches
@@ -91,7 +95,7 @@ namespace Itse1430.MovieLib.Host
             //    //Do something with movie
             //}
 
-            ////Pattern Matching
+            ////Pattern matching
             //if (item is Movie movie)
             //{
             //};
@@ -112,12 +116,6 @@ namespace Itse1430.MovieLib.Host
             {
                 _movies.Update (movie.Id, form.Movie);
                 UpdateUI ();
-
-                // //TODO: Change to update
-                // _movies.Remove(movie);
-                //// RemoveMovie (form.Movie);
-                // _movies.Add (form.Movie);
-                // UpdateUI ();
             };
         }
 
@@ -169,12 +167,12 @@ namespace Itse1430.MovieLib.Host
             form.ShowDialog (this);
         }
 
+        //Use lambdas for one off methods
         //private string OrderByTitle ( Movie movie )
         //{
         //    return movie.Title;
         //}
-
-        //private int OrderByReleaseYear (Movie movie)
+        //private int OrderByReleaseYear ( Movie movie )
         //{
         //    return movie.ReleaseYear;
         //}
@@ -184,12 +182,12 @@ namespace Itse1430.MovieLib.Host
             var movies = from m in _movies.GetAll ()
                          orderby m.Title, m.ReleaseYear
                          select m;
-            //var movies = _movies.GetAll ()
-            //                    .OrderBy (m => m.Title)
-            //                    .ThenBy (m => m.ReleaseYear);
-                                //.OrderBy (OrderByTitle)
-                                //.ThenBy (OrderByReleaseYear);
-            
+            //var movies = _movies.GetAll()
+            //                    .OrderBy(m => m.Title)
+            //                    .ThenBy(m => m.ReleaseYear);
+            //.OrderBy(OrderByTitle)
+            //.ThenBy(OrderByReleaseYear);
+
             PlayWithEnumerable (movies);
 
             //Programmatic approach
@@ -202,17 +200,20 @@ namespace Itse1430.MovieLib.Host
 
         private void PlayWithEnumerable ( IEnumerable<Movie> movies )
         {
-            Movie firstOne = movies.FirstOrDefault();
-            Movie lastOne = movies.LastOrDefault();
+            Movie firstOne = movies.FirstOrDefault ();
+            Movie lastOne = movies.LastOrDefault ();
             //Movie onlyOne = movies.SingleOrDefault();
 
-            //var coolMovies = movies.Where (m => m.ReleaseYear > 1979 && m.ReleaseYear < 2000);
+            //var coolMovies = movies.Where(m => m.ReleaseYear > 1979
+            //                                    && m.ReleaseYear < 2000);
 
             int id = 1;
-            //var otherMovies = movies.Where(m => m.Id > ++id);
-            var temp1 = new NestedType { id = id };
-            var otherMovies = movies.Where (temp1.WhereCondition);
-            var lastId = id;
+            var otherMovies = movies.Where (m => m.Id > ++id);
+
+            //The actual generated code...
+            //var temp1 = new NestedType { id = id };
+            //var otherMovies = movies.Where(temp1.WhereCondition);
+            //var lastId = id;
         }
 
         private sealed class NestedType
@@ -223,55 +224,6 @@ namespace Itse1430.MovieLib.Host
                 return m.Id > ++id;
             }
         }
-
-        //private void AddMovie ( Movie movie )
-        //{
-        //    _movies.Add (movie);
-
-        //    ////Add to array
-        //    //for (var index = 0; index < _movies.Count; ++index)
-        //    //{
-        //    //    if (_movies[index] == null) - Section 2 stuff
-        //    //    {
-        //    //        _movies[index] = movie;
-        //    //        return;
-        //    //    };
-        //    //};
-        //}
-
-        //private void RemoveMovie ( Movie movie )
-        //{
-        //    _movies.Remove (movie);
-        //    ////Remove from array
-        //    //for (var index = 0; index < _movies.Count; ++index)
-        //    //{
-        //    //    //This won't work
-        //    //    if (_movies[index] == movie) - Section 2 stuff
-        //    //    {
-        //    //        _movies[index] = null;
-        //    //        return;
-        //    //    };
-        //    //};
-        //}
-
-        //private Movie[] GetMovies ()
-        //{
-        //    ////Filter out empty movies
-        //    //var count = 0;
-        //    //foreach (var movie in _movies) - Section 2 stuff
-        //    //    if (movie != null)
-        //    //        ++count;
-
-        //    var index = 0;
-        //    var movies = new Movie[_movies.Count];
-        //    foreach (var movie in _movies)
-        //        if (movie != null)
-        //            movies[index++] = movie;
-
-        //    return movies;
-        //}
-
-        //private Movie[] _movies = new Movie[100]; - used for project 2
 
         private IMovieDatabase _movies;
     }

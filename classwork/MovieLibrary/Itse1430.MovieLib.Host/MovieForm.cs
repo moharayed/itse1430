@@ -13,9 +13,24 @@ namespace Itse1430.MovieLib.Host
 {
     public partial class MovieForm : Form
     {
-        public MovieForm ()
+        //Base ctor is always called unless ctor chaining is used
+        public MovieForm () //: base()
         {
+            //Don't need an init method when ctor chaining is available
+            //Init();
             InitializeComponent ();
+        }
+
+        //private void Init () { }
+
+        // Call default ctor first
+        public MovieForm ( string title ) : this ()
+        {
+            //Handled by ctor chaining
+            //Init();
+            //InitializeComponent();
+
+            Text = title;
         }
 
         //Must be a property...
@@ -23,6 +38,8 @@ namespace Itse1430.MovieLib.Host
 
         protected override void OnLoad ( EventArgs e )
         {
+            ///Init();
+
             //Call base type
             //OnLoad(e);
             base.OnLoad (e);
@@ -74,7 +91,9 @@ namespace Itse1430.MovieLib.Host
                 //if (!String.IsNullOrEmpty(message))
                 foreach (var result in results)
                 {
-                    MessageBox.Show (this, result.ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show (this, result.ErrorMessage,
+                                    "Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                 };
                 return false;
             };
@@ -111,6 +130,21 @@ namespace Itse1430.MovieLib.Host
             }
         }
 
+        private void OnValidatingRating ( object sender, CancelEventArgs e )
+        {
+            var control = sender as ComboBox;
+
+            //Text is required
+            if (control.SelectedIndex <= 0)
+            {
+                e.Cancel = true;
+                _errors.SetError (control, "Rating is required");
+            } else
+            {
+                _errors.SetError (control, "");
+            }
+        }
+
         private void OnValidatingReleaseYear ( object sender, CancelEventArgs e )
         {
             var control = sender as TextBox;
@@ -136,22 +170,6 @@ namespace Itse1430.MovieLib.Host
                 e.Cancel = true;
                 _errors.SetError (control, "Run length must be >= 0");
             } else
-            {
-                _errors.SetError (control, "");
-            }
-        }
-
-        private void OnValidatingRating ( object sender, CancelEventArgs e )
-        {
-            var control = sender as ComboBox;
-
-            //Text is required
-            if (control.SelectedIndex == -1)
-            {
-                e.Cancel = true;
-                _errors.SetError (control, "Rating is required");
-            } 
-            else
             {
                 _errors.SetError (control, "");
             }
