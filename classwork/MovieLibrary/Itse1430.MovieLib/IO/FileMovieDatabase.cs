@@ -149,3 +149,6 @@ namespace Itse1430.MovieLib.IO
         }
     }
 }
+
+//Reads 3rd line from a file
+// for loop instead of while loop
