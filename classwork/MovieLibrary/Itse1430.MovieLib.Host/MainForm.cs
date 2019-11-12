@@ -25,6 +25,7 @@ namespace Itse1430.MovieLib.Host
             var connString = ConfigurationManager.ConnectionStrings["MovieDatabase"];
             //_movies = new FileMovieDatabase (@"movies.csv");
             _movies = new SqlMovieDatabase (connString.ConnectionString);
+
             //var count = _movies.GetAll ().Count ();
             //if (count == 0)
             //    //MovieDatabaseExtensions.Seed(_movies);
@@ -55,7 +56,8 @@ namespace Itse1430.MovieLib.Host
                     MessageBox.Show (ex.Message, "Validation Error",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
-                } catch //(Exception ex)
+                } 
+                catch //(Exception ex)
                 {
                     MessageBox.Show ("Save failed", "Error",
                                     MessageBoxButtons.OK,
