@@ -59,8 +59,8 @@ namespace Itse1430.MovieLib.Host
 
         private void OnSave ( object sender, EventArgs e )
         {
-            if (!ValidateChildren ())
-                return;
+            //if (!ValidateChildren ())
+            //    return;
 
             //Object initializer syntax
             var movie = new Movie () {
@@ -73,10 +73,9 @@ namespace Itse1430.MovieLib.Host
             };
 
             //Validate
-            if (!Validate (movie))
-                return;
+            //if (!Validate (movie))
+            //    return;
 
-            //TODO: Save it
             Movie = movie;
 
             DialogResult = DialogResult.OK;
@@ -117,6 +116,7 @@ namespace Itse1430.MovieLib.Host
 
         private void OnValidatingName ( object sender, CancelEventArgs e )
         {
+            
             var control = sender as TextBox;
 
             //Name is required
@@ -132,6 +132,7 @@ namespace Itse1430.MovieLib.Host
 
         private void OnValidatingRating ( object sender, CancelEventArgs e )
         {
+            
             var control = sender as ComboBox;
 
             //Text is required
@@ -147,6 +148,7 @@ namespace Itse1430.MovieLib.Host
 
         private void OnValidatingReleaseYear ( object sender, CancelEventArgs e )
         {
+            
             var control = sender as TextBox;
 
             var value = GetAsInt32 (control);
@@ -162,6 +164,7 @@ namespace Itse1430.MovieLib.Host
 
         private void OnValidatingRunLength ( object sender, CancelEventArgs e )
         {
+            
             var control = sender as TextBox;
 
             var value = GetAsInt32 (control);

@@ -14,13 +14,14 @@ namespace Itse1430.MovieLib
             var results = new List<ValidationResult> ();
 
             var context = new ValidationContext (value);
-            Validator.TryValidateObject (value, context, results);
+            Validator.TryValidateObject (value, context, results, true);
 
             foreach (var result in results)
                 yield return result;
         }
     }
 }
+
 //Static def =
 //1) no 'this'
 //2) no instance members

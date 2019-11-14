@@ -10,7 +10,11 @@ namespace Itse1430.MovieLib.IO
     {
         public FileMovieDatabase ( string filePath )
         {
-            //TODO: Validation
+            if (filePath == null)
+                throw new ArgumentNullException (nameof (filePath));
+            if (String.IsNullOrEmpty (filePath))
+                throw new ArgumentException ("File path is empty.", nameof (filePath));
+
             _filePath = filePath;
         }
 
@@ -48,7 +52,6 @@ namespace Itse1430.MovieLib.IO
 
         protected override Movie GetByNameCore ( string name )
         {
-
             var reader = new StreamReader (_filePath);
             try
             {
@@ -61,23 +64,23 @@ namespace Itse1430.MovieLib.IO
                 };
             } finally
             {
-                //reader.Dispose ();
+                //reader.Dispose();
                 reader.Close ();
             };
 
             return null;
         }
+
         protected override Movie GetCore ( int id )
         {
             //Hard way
-            //var stream = File.OpenRead (_filePath);
-            //stream.Read
+            //var stream = File.OpenRead(_filePath);
+            //stream.Read(new byte[10], 0, 10);
 
             //using (var stream = File.OpenRead(""))
-            //using (var reader2 = new StreamReader(stream)) 
+            //using (var reader2 = new StreamReader(stream))            
 
-            //Reader way
-            //var reader = new StreamReader (_filePath);
+            //Reader way            
             using (var reader = new StreamReader (_filePath))
             {
                 //try
@@ -86,34 +89,36 @@ namespace Itse1430.MovieLib.IO
                 {
                     var line = reader.ReadLine ();
                     var movie = LoadMovie (line);
-                    if (movie?.Id == id)
+                    if (movie?.Id ==  id)
                         return movie;
                 };
             };
-            //}
-            //finally
+            //} finally
             //{
-            //    reader.Close ();
+            //    reader.Close();
             //}
 
             return null;
         }
+
         protected override void RemoveCore ( int id )
         {
-            var movies = GetAllCore ().Where (m => m.Id != id);
+            var movies = GetAllCore ()
+                                .Where (m => m.Id != id);
 
             SaveMovies (movies);
         }
+
         protected override Movie UpdateCore ( int id, Movie newMovie )
         {
-            var movies = GetAllCore ().Where (m => m.Id != id);
+            var movies = GetAllCore ()
+                                .Where (m => m.Id != id);
 
             newMovie.Id = id;
             movies = movies.Union (new[] { newMovie });
 
             SaveMovies (movies);
             return newMovie;
-
         }
 
         private void SaveMovies ( IEnumerable<Movie> items )
@@ -133,7 +138,7 @@ namespace Itse1430.MovieLib.IO
 
             return new Movie () {
                 Id = Int32.TryParse (tokens[0], out var id) ? id : 0,
-                Title = tokens[1].Trim('"',' '),
+                Title = tokens[1].Trim ('"', ' '),
                 Description = tokens[2].Trim ('"', ' '),
                 Rating = tokens[3].Trim ('"', ' '),
                 ReleaseYear = Int32.TryParse (tokens[4], out var year) ? year : 1900,
@@ -149,6 +154,7 @@ namespace Itse1430.MovieLib.IO
         }
     }
 }
+
 
 //Reads 3rd line from a file
 // for loop instead of while loop
