@@ -1,8 +1,12 @@
 /*
+ * Mohammed Rayed
+ * Lab 4
  * ITSE 1430
  */
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Nile.Windows
@@ -69,11 +73,26 @@ namespace Nile.Windows
                 IsDiscontinued = _chkDiscontinued.Checked,
             };
 
-            //TODO: Validate product
+            if (!Validate (product))
+                return;
 
             Product = product;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private bool Validate ( IValidatableObject product )
+        {
+            var results = ObjectValidator.TryValidateObject (product);
+            if (results.Count() > 0)
+            {
+                foreach (var result in results)
+                {
+                    MessageBox.Show (this, result.ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+                return false;
+            };
+            return true;
         }
 
         private void OnValidatingName ( object sender, CancelEventArgs e )

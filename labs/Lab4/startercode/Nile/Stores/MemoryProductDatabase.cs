@@ -1,4 +1,6 @@
 /*
+ * Mohammed Rayed
+ * Lab 4
  * ITSE 1430
  */
 using System;
@@ -91,6 +93,7 @@ namespace Nile.Stores
         }
 
         private List<Product> _products = new List<Product>();
+
         private int _nextId = 1;
     }
 }
